@@ -1,0 +1,67 @@
+<form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
+  <div *ngFor="let control of formService.formStructure">
+    <!-- Text, Email, Number, Password, Textarea, Date -->
+    <div *ngIf="['text', 'email', 'number', 'password', 'textarea', 'date'].includes(control.type)">
+      <label>{{control.label}}</label>
+      <textarea *ngIf="control.type === 'textarea'" 
+                [formControlName]="control.name"
+                [placeholder]="control.label"></textarea>
+      <input *ngIf="control.type !== 'textarea'" 
+             [type]="control.type" 
+             [formControlName]="control.name"
+             [placeholder]="control.label">
+      <span *ngIf="dynamicForm.controls[control.name]?.invalid && dynamicForm.controls[control.name]?.touched">
+        {{getErrorMessage(control)}}
+      </span>
+    </div>
+
+    <!-- Select Dropdown -->
+    <div *ngIf="control.type === 'select'">
+      <label>{{control.label}}</label>
+      <select [formControlName]="control.name">
+        <option *ngFor="let option of control.options" [value]="option.value">{{option.label}}</option>
+      </select>
+      <span *ngIf="dynamicForm.controls[control.name]?.invalid && dynamicForm.controls[control.name]?.touched">
+        {{getErrorMessage(control)}}
+      </span>
+    </div>
+
+    <!-- Radio Buttons -->
+    <div *ngIf="control.type === 'radio'">
+      <label>{{control.label}}</label>
+      <div *ngFor="let option of control.options" class="radio-option">
+        <input type="radio" 
+               [formControlName]="control.name" 
+               [value]="option.value"
+               [id]="control.name + option.value">
+        <label [for]="control.name + option.value">{{option.label}}</label>
+      </div>
+      <span *ngIf="dynamicForm.controls[control.name]?.invalid && dynamicForm.controls[control.name]?.touched">
+        {{getErrorMessage(control)}}
+      </span>
+    </div>
+
+    <!-- Single Checkbox -->
+    <div *ngIf="control.type === 'checkbox'">
+      <label class="checkbox-label">
+        <input type="checkbox" [formControlName]="control.name">
+        {{control.label}}
+      </label>
+    </div>
+
+    <!-- Checkbox Group -->
+    <div *ngIf="isCheckboxGroup(control)">
+      <label>{{control.label}}</label>
+      <div formGroupName="{{control.name}}">
+        <div *ngFor="let option of control.options" class="checkbox-option">
+          <input type="checkbox" 
+                 [formControlName]="option.value"
+                 [id]="control.name + option.value">
+          <label [for]="control.name + option.value">{{option.label}}</label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" [disabled]="dynamicForm.invalid">Submit</button>
+</form>

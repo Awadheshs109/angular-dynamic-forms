@@ -1,0 +1,24 @@
+{
+  "name": "dynamic-form-template",
+  "version": "0.0.2",
+  "description": "A highly configurable dynamic form component for Angular",
+  "author": "Awadhesh Sharma <awadheshs109@gmail.com>",
+  "peerDependencies": {
+    "@angular/common": "^16.1.0",
+    "@angular/core": "^16.1.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Awadheshs109/angular-dynamic-forms"
+  },
+  "keywords": [
+    "angular",
+    "forms",
+    "dynamic forms",
+    "reactive forms"
+  ],
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false
+}
