@@ -120,3 +120,6 @@ export class DynamicFormComponent implements OnInit {
     return control.type === 'checkbox-group';
   }
 }
+// ng build dynamic-form --configuration production
+// cd dist/dynamic-form
+// npm publish
