@@ -1,5 +1,5 @@
 <form [formGroup]="dynamicForm" (ngSubmit)="onSubmit()">
-  <div *ngFor="let control of formService.formStructure">
+  <div *ngFor="let control of formStructure ">
     <!-- Text, Email, Number, Password, Textarea, Date -->
     <div *ngIf="['text', 'email', 'number', 'password', 'textarea', 'date'].includes(control.type)">
       <label>{{control.label}}</label>

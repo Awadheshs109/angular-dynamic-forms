@@ -9,14 +9,21 @@ import { FormService } from '../form-service.service';
 })
 export class DynamicFormComponent implements OnInit {
   dynamicForm: FormGroup = this.formBuilder.group({});
+  formStructure: any;
 
   constructor(private formBuilder: FormBuilder, public formService: FormService) { }
 
   ngOnInit() {
-    const formStructure = this.formService.getFormStructure();
+     this.formService.getFormStructure().subscribe(res => {
+      this.formStructure = res;
+      this.getFormData()
+    });
+  }
+  getFormData(){
+    
     let formGroup: Record<string, any> = {};
 
-    formStructure.forEach((control:any) => {
+    this.formStructure.forEach((control:any) => {
       if (control.type === 'checkbox-group') {
         // Handle checkbox groups differently
         const checkboxControls: Record<string, FormControl> = {};
@@ -62,6 +69,7 @@ export class DynamicFormComponent implements OnInit {
     });
 
     this.dynamicForm = this.formBuilder.group(formGroup);
+
   }
 
   onSubmit() {

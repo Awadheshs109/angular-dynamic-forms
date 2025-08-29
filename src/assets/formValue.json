@@ -1,10 +1,4 @@
-import { Injectable } from '@angular/core';
-
-@Injectable({
-  providedIn: 'root'
-})
-export class FormService {
-  formStructure = [
+[
     {
       "type": "text",
       "label": "Full Name",
@@ -70,7 +64,7 @@ export class FormService {
           "name": "required",
           "validator": "required",
           "message": "Age is required"
-        },
+        }
       ]
     },
     {
@@ -174,9 +168,4 @@ export class FormService {
         }
       ]
     }
-  ];
-
-  getFormStructure() {
-    return this.formStructure;
-  }
-}
+  ]
